@@ -1,26 +1,41 @@
 const express = require('express')
+var bodyParser = require('body-parser')
+
 const app = express()
-// Get route
-app.get('/', function (req, res) {
-  res.send('Hello World')
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+let people = [];
+
+app.get('/', function (req, res) {// creates and sends response
+  res.send(people)
 })
-// post route
-app.post('/', (req, res) => {
-	  res.send('post Hello World')
-});
 
-// Patch  route
-app.patch('/', (req, res) => {
-	  res.send('patch Hello World');
-});
+app.post('/', function (req, res) {
+  let { name } = req.body;
+  let { age } = req.body;
+  let person = {
+    name,
+    age,
+  }
+  people.push(person);
+  res.send(people)
+})
 
-// Delete route
-app.delete('/', (req, res) => {
-	  res.send('delele Hello World');
-});
 
-app.listen(3000, console.log('Example app listening on port 3000!'));
+app.listen(3000, console.log('Server is running on port 3000'))
 
-// ip => localhost -> localhost:3000
 
-//url => protocol://host:port/path?query => http://localhost:3000/
+// ip:port - domain name
+
+// 127.0.0.1 - localhost
+// 3000 - port
+
+// protocol://domain-name/localPath
+
+// https://www.npmjs.com/package/express
+
+// https://www.npmjs.com/
+
+// http://127.0.0.1:3000/
